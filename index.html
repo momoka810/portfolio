@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATELIER MOMO — 作業を仕組みに、時間を自分に。</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,300;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:      #0c3969;
+      --navy-deep: #071f3d;
+      --navy-mid:  #1a5294;
+      --rose:      #ecd8d1;
+      --rose-dark: #d4b8ae;
+      --rose-pale: #f7f0ed;
+      --expo:   cubic-bezier(0.16, 1, 0.3, 1);
+      --smooth: cubic-bezier(0.76, 0, 0.24, 1);
+      --display: 'Outfit', sans-serif;
+      --serif:   'DM Sans', sans-serif;
+      --mono:    'DM Mono', monospace;
+    }
+    em { font-style: normal; font-weight: 600; }
+    html { scroll-behavior: smooth; width: 100%; margin: 0; padding: 0; }
+    body {
+      background: var(--rose-pale);
+      color: var(--navy);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+
+
+
+
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      height: 58px; padding: 0 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--navy);
+    }
+    .nav-logo { font-family: 'Outfit', sans-serif; font-size: 18px; letter-spacing: .22em; color: var(--rose);  }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+      color: rgba(236,216,209,.4); text-decoration: none;  position: relative; transition: color .25s;
+    }
+    .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--rose); transition: width .4s var(--expo); }
+    .nav-links a:hover { color: var(--rose); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-badge { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: rgba(236,216,209,.2); border-left: 1px solid rgba(236,216,209,.1); padding-left: 24px; }
+
+    /* ── HERO ── */
+    #hero {
+      padding-top: 58px; min-height: 100vh;
+      background: var(--navy);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      position: relative; z-index: 1; overflow: hidden;
+    }
+    .h-orb {
+      position: absolute; width: 800px; height: 800px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(236,216,209,.055) 0%, transparent 65%);
+      top: 40%; left: 50%; transform: translate(-50%,-50%);
+      animation: orbPulse 9s ease-in-out infinite; pointer-events: none;
+    }
+    @keyframes orbPulse { 0%,100%{ transform:translate(-50%,-50%) scale(1); } 50%{ transform:translate(-50%,-50%) scale(1.15); } }
+
+    .hero-upper { flex: 1; display: flex; align-items: center; padding: 60px 56px 0; position: relative; z-index: 1; }
+    .hero-copy { max-width: 780px; }
+
+    .h-eyebrow { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .h-eyeline { width: 1px; height: 40px; background: rgba(236,216,209,.28); flex-shrink: 0; }
+    .h-eyetext { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(236,216,209,.45); }
+
+    /* Main catch copy */
+    .h-catch {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: clamp(40px, 6.5vw, 96px);
+      line-height: .95; letter-spacing: -.02em;
+      text-transform: none; color: var(--rose);
+      margin-bottom: 20px;
+    }
+    .h-cline { display: block; }
+    .h-cline-inner { display: block; }
+
+    /* Sub copy */
+    .h-sub {
+      font-family: 'DM Sans', sans-serif; 
+      font-size: clamp(15px, 2vw, 22px);
+      color: rgba(236,216,209,.5); letter-spacing: .02em;
+      margin-bottom: 32px;
+    }
+
+    /* Skill tags */
+    .h-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 0; }
+    .h-tag {
+      font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
+      padding: 7px 16px;
+      border: 1px solid rgba(236,216,209,.22);
+      color: rgba(236,216,209,.5);
+      transition: all .3s var(--expo);
+    }
+    .h-tag:hover { border-color: var(--rose); color: var(--rose); }
+    .h-tag.accent { background: rgba(236,216,209,.08); border-color: rgba(236,216,209,.35); color: var(--rose); }
+
+    /* Name row */
+    .h-name-row { display: flex; align-items: baseline; gap: 16px; margin-top: 32px; }
+    .h-name { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(16px,2vw,22px); letter-spacing: .22em; text-transform: uppercase; color: rgba(236,216,209,.45); }
+    .h-name-div { width: 1px; height: 12px; background: rgba(236,216,209,.18); }
+    .h-name-role { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: rgba(236,216,209,.25); }
+
+    /* Bottom strip */
+    .hero-bottom {
+      border-top: 1px solid rgba(236,216,209,.08); padding: 24px 56px;
+      display: flex; justify-content: space-between; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .h-scroll { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: rgba(236,216,209,.25); display: flex; align-items: center; gap: 10px; }
+    .h-scroll-line { width: 32px; height: 1px; background: rgba(236,216,209,.2); animation: scrollHint 2s 3.5s ease-in-out infinite; }
+    @keyframes scrollHint { 0%,100%{width:32px;opacity:.3} 50%{width:48px;opacity:.7} }
+    .h-btns { display: flex; gap: 12px; }
+
+    /* ── TICKER ── */
+    .ticker-wrap { overflow: hidden; border-top: 1px solid var(--rose-dark); border-bottom: 1px solid var(--rose-dark); padding: 12px 0; background: var(--rose); position: relative; z-index: 1; }
+    .ticker-wrap:hover .ticker { animation-play-state: paused; }
+    .ticker { display: flex; animation: ticker 22s linear infinite; white-space: nowrap; }
+    .ticker-item { font-family: 'Outfit', sans-serif; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--navy); padding: 0 22px; display: flex; align-items: center; gap: 14px; transition: opacity .2s; }
+    .ticker-item::after { content: '◆'; font-size: 6px; opacity: .35; }
+    .ticker-wrap:hover .ticker-item { opacity: .55; }
+    .ticker-wrap:hover .ticker-item:hover { opacity: 1; }
+    @keyframes ticker { to{ transform: translateX(-50%); } }
+
+    /* ── ABOUT ── */
+    #about { display: flex; flex-direction: column; border-bottom: 1px solid var(--rose-dark); position: relative; z-index: 1; }
+
+    .about-l { background: var(--navy); padding: 100px 56px; border-bottom: 1px solid rgba(236,216,209,.08); display: grid; grid-template-columns: auto 1fr; gap: 64px; align-items: start; }
+    .about-r { background: var(--rose-pale); padding: 100px 56px; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }
+    .dot-grid-wrap { margin: auto 0; }
+
+    .s-tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .3em; text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+    .s-tag::before { content: '—'; }
+
+    .big-h { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(50px,5.5vw,76px); line-height: .9; text-transform: uppercase; letter-spacing: -.02em; margin-bottom: 44px; }
+    .big-h .out { -webkit-text-stroke: 2px currentColor; color: transparent; }
+
+    .about-body p { font-size: 15px; line-height: 1.95; color: rgba(236,216,209,.6); margin-bottom: 18px; }
+    .about-body p em {  color: var(--rose); font-weight: 700; }
+
+    .pull-q { border-left: 2px solid var(--rose); padding-left: 20px; margin: 32px 0; font-family: 'DM Sans', sans-serif;  font-size: 16px; line-height: 1.65; color: rgba(236,216,209,.7); }
+
+    /* Timeline */
+    .timeline { margin-top: 44px; }
+    .tl-item { display: grid; grid-template-columns: 88px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid rgba(236,216,209,.08); position: relative; }
+    .tl-item:first-child { border-top: 1px solid rgba(236,216,209,.08); }
+    .tl-year { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em; color: var(--rose); opacity: .5; padding-top: 2px; flex-shrink: 0; }
+    .tl-text { font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.7; color: rgba(236,216,209,.55); }
+    .tl-text strong { color: rgba(236,216,209,.8); font-weight: 700; display: block; margin-bottom: 2px; }
+
+    /* Skills right */
+    .skills-big { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(42px,5vw,64px); line-height: .9; text-transform: uppercase; letter-spacing: -.01em; color: var(--navy); margin-bottom: 48px; }
+    .skill-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid var(--rose-dark); position: relative; gap: 16px; }
+    .skill-row:first-of-type { border-top: 1px solid var(--rose-dark); }
+    .sk-name { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--navy); flex-shrink: 0; min-width: 140px; }
+    .sk-track { width: 160px; flex-shrink: 0; height: 1px; background: var(--rose-dark); }
+    .sk-fill { height: 100%; background: var(--navy); width: var(--w); }
+    .sk-fill.on { width: var(--w); }
+    .sk-pct { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--rose-dark); width: 28px; text-align: right; flex-shrink: 0; }
+
+
+    .dot-cell { transition: opacity .15s, transform .15s; }
+    .dot-anim .dot-cell { opacity: 0 !important; transform: scale(0) !important; }
+
+    #circle-ai, #circle-dev, #circle-design {
+      transition: stroke-dashoffset 1.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    /* ── VALUES ── */
+    #values { background: var(--navy); border-bottom: 1px solid rgba(236,216,209,.08); position: relative; z-index: 1; }
+
+    .val-header { padding: 80px 56px 64px; border-bottom: 1px solid rgba(236,216,209,.08); display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; position: relative; }
+    .val-big { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(52px,6.5vw,96px); line-height: .88; text-transform: uppercase; letter-spacing: -.01em; color: var(--rose-pale); }
+    .val-big .out { -webkit-text-stroke: 2px var(--rose-pale); color: transparent; }
+    .val-desc { font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.85; color: rgba(236,216,209,.6); margin: 0; }
+    .val-desc em { color: var(--rose-pale); font-weight: 700; }
+
+    .val-cards { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid rgba(236,216,209,.08); }
+    .val-card { padding: 52px 40px; border-right: 1px solid rgba(236,216,209,.08); position: relative; overflow: hidden; background: var(--rose-pale); }
+    .val-card:last-child { border-right: none; }
+    .val-card::after { content: ''; position: absolute; inset: 0; background: var(--navy); transform: translateY(101%); transition: transform .55s var(--expo); z-index: 0; }
+    .val-card:hover::after { transform: translateY(0); }
+    .val-card > * { position: relative; z-index: 1; transition: color .3s; }
+    .val-card-num { font-family: 'Outfit', sans-serif; font-size: 56px; line-height: 1; color: rgba(12,57,105,.08); margin-bottom: 20px; user-select: none; }
+    .val-card:hover .val-card-num { color: rgba(236,216,209,.07); }
+    .val-card-title { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(20px,2.2vw,30px); text-transform: uppercase; letter-spacing: .02em; color: var(--navy); margin-bottom: 6px; line-height: 1.05; }
+    .val-card:hover .val-card-title { color: var(--rose); }
+    .val-card-en { font-family: 'DM Sans', sans-serif; font-size: 12px; color: rgba(12,57,105,.4); margin-bottom: 18px; transition: color .3s; }
+    .val-card:hover .val-card-en { color: rgba(236,216,209,.4); }
+    .val-card-body { font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.85; color: rgba(12,57,105,.6); transition: color .3s; }
+    .val-card:hover .val-card-body { color: rgba(236,216,209,.6); }
+
+    /* ── WORKS ── */
+    #works { position: relative; z-index: 1; }
+    .works-mast { background: var(--rose); border-bottom: 2px solid var(--navy); padding: 80px 48px; display: grid; grid-template-columns: 1fr auto; align-items: end; }
+    .wm-title { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(56px,9vw,114px); line-height: 1; text-transform: uppercase; letter-spacing: -.01em; color: var(--navy); }
+    .wm-title .out { -webkit-text-stroke: 2.5px var(--navy); color: transparent; }
+    .wm-sub { font-family: 'DM Sans', sans-serif;  font-size: 14px; color: rgba(12,57,105,.45); text-align: right; line-height: 2; }
+
+    .proj-grid { display: grid; grid-template-columns: repeat(3,1fr); background: var(--navy); border-bottom: 2px solid var(--navy); }
+    .pc { border-right: 1px solid rgba(236,216,209,.07); border-bottom: 1px solid rgba(236,216,209,.07); background: var(--rose-pale); position: relative; overflow: hidden; cursor:pointer; }
+    .pc::after { content: ''; position: absolute; inset: 0; background: var(--rose); transform: translateY(101%); transition: transform .55s var(--expo); z-index: 0; }
+    .pc:hover::after { transform: translateY(0); }
+    .pc > * { position: relative; z-index: 1; }
+
+    /* Placeholder card style */
+    .pc-placeholder { text-align: center; }
+    .pc-ph-num { font-family: 'Outfit', sans-serif; font-size: 48px; color: rgba(12,57,105,.07); line-height: 1; margin-bottom: 12px; }
+    .pc-ph-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: rgba(12,57,105,.25); margin-bottom: 8px; }
+    .pc-ph-hint { font-family: 'DM Sans', sans-serif;  font-size: 13px; color: rgba(12,57,105,.2); }
+    .pc:hover .pc-ph-label { color: rgba(12,57,105,.4); }
+
+    /* Filled card style */
+    .pc-inner { width: 100%; }
+    .pc-num { font-family: 'Outfit', sans-serif; font-size: 44px; line-height: 1; color: rgba(12,57,105,.07); margin-bottom: 6px; user-select: none; transition: color .4s; }
+    .pc:hover .pc-num { color: rgba(12,57,105,.13); }
+    .pc-cat { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: rgba(12,57,105,.38); margin-bottom: 10px; }
+    .pc-title { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(16px,2vw,22px); line-height: 1.1; text-transform: uppercase; color: var(--navy); margin-bottom: 8px; }
+    .pc-feeling { font-family: 'DM Sans', sans-serif;  font-size: 12px; color: rgba(12,57,105,.45); margin-bottom: 10px; line-height: 1.5; }
+    .pc-desc { font-family: 'DM Sans', sans-serif; font-size: 13px; line-height: 1.7; color: rgba(12,57,105,.52); margin-bottom: 16px; }
+    .pc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .pc-tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; padding: 4px 10px; border: 1px solid rgba(12,57,105,.18); color: var(--navy); }
+
+
+
+    .pc-thumb { width:100%; aspect-ratio:16/9; transition: transform .4s var(--expo); }
+    .pc:hover .pc-thumb { transform: scale(1.04); }
+    .pc-card-title { font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:var(--navy);padding:16px 20px;letter-spacing:.02em; }
+    .pc-hover-hint { font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.15em;color:rgba(12,57,105,.3);margin-top:16px;transition:color .3s; }
+    .pc:hover .pc-hover-hint { color:rgba(12,57,105,.6); }
+    .pc { cursor:pointer; }
+    .modal-btn { display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:12px 24px;border:1.5px solid var(--navy);color:var(--navy);text-decoration:none;transition:all .3s; }
+    .modal-btn:hover { background:var(--navy);color:var(--rose-pale); }
+    .modal-btn-github { border-color:rgba(12,57,105,.3);color:rgba(12,57,105,.5); }
+    .modal-btn-github:hover { background:rgba(12,57,105,.1);color:var(--navy); }
+
+    /* ── CONTACT ── */
+    #contact { display: grid; grid-template-columns: 1fr 1fr; position: relative; z-index: 1; }
+    .con-l { background: var(--navy); padding: 96px 56px; display: flex; flex-direction: column; justify-content: space-between; border-right: 1px solid rgba(236,216,209,.07); }
+    .con-big { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: clamp(44px,6.5vw,88px); line-height: .87; text-transform: uppercase; color: var(--rose); letter-spacing: -.01em; }
+    .con-big .out { -webkit-text-stroke: 2px var(--rose); color: transparent; }
+    .con-message { font-family: 'DM Sans', sans-serif;  font-size: 15px; color: rgba(236,216,209,.45); margin-top: 20px; line-height: 1.8; letter-spacing: .02em; }
+    .con-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .con-r { background: var(--rose); padding: 96px 56px; display: flex; flex-direction: column; justify-content: space-between; }
+    .con-r-intro { font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.9; color: rgba(12,57,105,.65); margin-bottom: 44px; }
+    .con-r-intro em {  color: var(--navy); font-weight: 700; }
+    .con-list { display: flex; flex-direction: column; }
+    .con-item { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid var(--rose-dark); text-decoration: none; color: var(--navy);  position: relative; overflow: hidden; transition: padding-left .35s var(--expo); }
+    .con-item:first-child { border-top: 1px solid var(--rose-dark); }
+    .con-item::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--navy); transition: width .4s var(--expo); }
+    .con-item:hover::after { width: 100%; }
+    .con-item:hover { padding-left: 10px; }
+    .con-name { font-family: 'Outfit', sans-serif; font-size: 20px; letter-spacing: .06em; text-transform: uppercase; }
+    .con-arr { font-family: 'DM Mono', monospace; font-size: 11px; opacity: .3; transition: opacity .25s, transform .35s var(--expo); }
+    .con-item:hover .con-arr { opacity: 1; transform: translateX(6px); }
+    .con-note { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: rgba(12,57,105,.3); }
+
+    /* ── BUTTONS ── */
+    .btn { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; padding: 13px 28px; text-decoration: none;  display: inline-flex; align-items: center; gap: 10px; position: relative; overflow: hidden; transition: color .3s; white-space: nowrap; }
+    .btn .b-bg { position: absolute; inset: 0; transform: translateX(-101%); transition: transform .45s var(--expo); }
+    .btn:hover .b-bg { transform: translateX(0); }
+    .btn span, .btn .b-arr { position: relative; z-index: 1; }
+    .b-arr { display: inline-block; transition: transform .35s var(--expo); }
+    .btn:hover .b-arr { transform: translateX(4px); }
+    .btn-rose { background: var(--rose); color: var(--navy); border: 1.5px solid var(--rose); }
+    .btn-rose .b-bg { background: var(--rose-pale); }
+    .btn-ghost-rose { background: transparent; color: var(--rose); border: 1.5px solid rgba(236,216,209,.3); }
+    .btn-ghost-rose .b-bg { background: rgba(236,216,209,.08); }
+    .btn-ghost-rose:hover { border-color: var(--rose); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--navy-deep); border-top: 1px solid rgba(236,216,209,.06); padding: 18px 48px; display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 1; }
+    footer span { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: rgba(236,216,209,.2); }
+    .f-dot { display: flex; align-items: center; gap: 8px; color: var(--rose) !important; }
+    .f-dot::before { content: ''; width: 6px; height: 6px; background: var(--rose); border-radius: 50%; animation: blink 2.5s ease infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+
+    /* ── SCROLL REVEAL ── */
+    .sr { opacity: 1; transform: none; }
+    .sr.up { opacity: 1; transform: none; }
+    .sr-stagger > * { opacity: 1; transform: none; }
+    .sr-stagger.up > * { opacity: 1; transform: none; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--navy); border-radius: 2px; }
+
+    /* ── TECH STACK responsive ── */
+    .tech-stack-wrapper { display:flex; gap:300px; align-items:center; }
+    .tech-stack-title { writing-mode:vertical-rl; font-family:'Outfit',sans-serif; font-weight:900; font-size:clamp(36px,4vw,56px); color:var(--navy); letter-spacing:.05em; line-height:1; flex-shrink:0; }
+    .tech-charts-wrapper { display:flex; gap:64px; align-items:flex-start; flex:1; justify-content:center; }
+    .tech-chart { display:flex; flex-direction:column; align-items:center; gap:16px; }
+    .tech-chart svg { width:200px; height:200px; }
+
+    @media(max-width:960px){
+      nav { padding: 0 20px; } .nav-badge { display: none; }
+      .hero-upper { padding: 48px 24px 0; } .hero-bottom { padding: 20px 24px; flex-direction: column; gap: 16px; align-items: flex-start; }
+      .h-catch { font-size: clamp(36px,10vw,56px); }
+      #about { grid-template-columns: 1fr; } .about-l,.about-r { padding: 56px 24px; }
+      .val-header { grid-template-columns: 1fr; padding: 56px 24px 32px; }
+      .val-cards { grid-template-columns: 1fr; } .val-card { border-right: none; border-bottom: 1px solid var(--rose-dark); }
+      .proj-grid { grid-template-columns: 1fr; } .pc { border-right: none; }
+      .works-mast { padding: 28px 24px; }
+      #contact { grid-template-columns: 1fr; } .con-l,.con-r { padding: 60px 24px; }
+      footer { padding: 14px 20px; flex-direction: column; gap: 8px; }
+      /* tech stack */
+      .tech-stack-wrapper { gap:40px; }
+      .tech-charts-wrapper { gap:24px; }
+      .tech-chart svg { width:120px; height:120px; }
+    }
+
+    @media(max-width:480px){
+      .tech-stack-wrapper { gap:20px; }
+      .tech-charts-wrapper { gap:16px; }
+      .tech-chart svg { width:80px; height:80px; }
+    }
+  </style>
+</head>
+<body>
+
+
+
+
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-logo" style="font-size:12px;letter-spacing:.32em;font-weight:500">ATELIER MOMO</div>
+    <div style="display:flex;align-items:center;gap:32px">
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#about">Skills</a></li>
+        <li><a href="#values">Values</a></li>
+        <li><a href="#works">Works</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="nav-badge" style="font-size:9px;letter-spacing:.22em">Kyoto, Japan</div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="h-orb"></div>
+    <div class="hero-upper">
+      <div class="hero-copy">
+
+        <!-- Brand name as hero -->
+        <h1 class="h-catch" id="hCatch" style="font-size:clamp(52px,9vw,130px);line-height:.9;letter-spacing:.06em;font-weight:800">
+          <span class="h-cline"><span class="h-cline-inner" id="cl1">ATELIER</span></span>
+          <span class="h-cline"><span class="h-cline-inner" id="cl2">MOMO</span></span>
+        </h1>
+
+        <!-- Thin divider line like atelier rouge -->
+        <div style="width:40px;height:1px;background:rgba(236,216,209,.3);margin:24px 0;"></div>
+
+        <!-- Catch copy as sub -->
+        <p class="h-sub" id="hSub" style="font-family:'DM Mono',monospace;font-size:clamp(11px,1.2vw,14px);letter-spacing:.12em;color:rgba(236,216,209,.5);margin-bottom:12px;line-height:2">
+          作業を仕組みに、時間を自分に。
+        </p>
+        <p style="font-family:'DM Mono',monospace;font-size:clamp(10px,1vw,12px);letter-spacing:.1em;color:rgba(236,216,209,.28);margin-bottom:36px">
+          見た目から、使いやすさまで。
+        </p>
+
+        <div class="h-tags" id="hTags">
+          <span class="h-tag accent">UI / UX Design</span>
+          <span class="h-tag accent">Design × Engineer</span>
+          <span class="h-tag">Web App</span>
+          <span class="h-tag">AI 自動化</span>
+          <span class="h-tag">業務効率化</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Vertical text on right edge like editorial magazines -->
+    <div style="position:absolute;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;">
+      <div style="writing-mode:vertical-lr;white-space:nowrap;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(236,216,209,.3)">Designer × Engineer — Kyoto, Japan</div>
+    </div>
+
+    <div class="hero-bottom" id="heroBottom">
+      <div class="h-scroll">
+        <div class="h-scroll-line"></div>
+        Scroll to explore
+      </div>
+      <div class="h-btns">
+        <a href="#works" class="btn btn-rose">
+          <span>作品を見る</span><span class="b-arr">↓</span><div class="b-bg"></div>
+        </a>
+        <a href="#contact" class="btn btn-ghost-rose">
+          <span>まず相談する</span><div class="b-bg"></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <span class="ticker-item">UI / UX Design</span>
+      <span class="ticker-item">JavaScript</span>
+      <span class="ticker-item">TypeScript</span>
+      <span class="ticker-item">Python</span>
+      <span class="ticker-item">React</span>
+      <span class="ticker-item">Next.js</span>
+      <span class="ticker-item">FastAPI</span>
+      <span class="ticker-item">AI 自動化</span>
+      <span class="ticker-item">業務効率化</span>
+      <span class="ticker-item">Figma</span>
+      <span class="ticker-item">UI / UX Design</span>
+      <span class="ticker-item">JavaScript</span>
+      <span class="ticker-item">TypeScript</span>
+      <span class="ticker-item">Python</span>
+      <span class="ticker-item">React</span>
+      <span class="ticker-item">Next.js</span>
+      <span class="ticker-item">FastAPI</span>
+      <span class="ticker-item">AI 自動化</span>
+      <span class="ticker-item">業務効率化</span>
+      <span class="ticker-item">Figma</span>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-l sr">
+      <div style="writing-mode:vertical-rl;font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(60px,7vw,100px);color:var(--rose);letter-spacing:.05em;margin-bottom:0;line-height:1">WHO AM I ?</div>
+      <div>
+        <div class="s-tag" style="color:rgba(236,216,209,.4)">About</div>
+      <div class="about-body">
+        <p>
+          現在、注文住宅会社のAX戦略部に所属し、<em>業務改善に繋がるAIシステムの構築</em>を実務として担当しています。
+        </p>
+        <p>
+          早稲田大学で芸術史を学び、フランス留学や広告会社でのWebデザイン経験を経て、エンジニアの道へ。
+          現在はフリーランスとして、<em>AIを活用した業務効率化やWebアプリ開発</em>を手がけています。
+        </p>
+        <p>
+          得意なのは、話を聞いて整理すること。「つまりこういうこと？」と要望の本質を一緒に見つけながら、
+          <em>期待を超えるものをお返しします。</em>
+        </p>
+        <blockquote class="pull-q">
+          "デザインスクールで培ったUI設計の知識と、<br>
+          エンジニアとしての実装力で、<br>
+          見た目から使いやすさまで一貫して対応できます。"
+        </blockquote>
+      </div>
+
+      <div class="timeline sr-stagger">
+        <div class="tl-item">
+          <span class="tl-year">2019 —</span>
+          <div class="tl-text"><strong>早稲田大学 文化構想学部</strong>芸術史専攻に入学。デザインと美の歴史を学ぶ。</div>
+        </div>
+        <div class="tl-item">
+          <span class="tl-year">2022 —</span>
+          <div class="tl-text"><strong>フランス留学</strong>パリへ。フランスのデザイン哲学と美意識に触れ、価値観が変わる。</div>
+        </div>
+        <div class="tl-item">
+          <span class="tl-year">2024 —</span>
+          <div class="tl-text"><strong>デザインスクール入学</strong>UI/UXデザインを体系的に学び、実務レベルのスキルを習得。</div>
+        </div>
+        <div class="tl-item">
+          <span class="tl-year">2025 —</span>
+          <div class="tl-text"><strong>エンジニアとしての活動開始</strong>プログラミングを学びはじめ、デザイン×開発の両立へ。</div>
+        </div>
+        <div class="tl-item">
+          <span class="tl-year">2026 —</span>
+          <div class="tl-text"><strong>AIエンジニアアシスタント</strong>注文住宅会社にてAIを活用した業務効率化に従事。現在フリーランスとしても活動中。</div>
+        </div>
+      </div>
+      </div><!-- end right col -->
+    </div>
+
+                                <div class="about-r sr">
+      <div class="s-tag" style="color:rgba(12,57,105,.4)">Skills</div>
+      <div class="tech-stack-wrapper">
+        <div class="tech-stack-title">TECH STACK</div>
+
+        <div class="tech-charts-wrapper">
+
+          <!-- AI Tools -->
+          <div class="tech-chart">
+            <svg viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="86" fill="none" stroke="var(--rose-dark)" stroke-width="7"/>
+              <circle cx="100" cy="100" r="86" fill="none" stroke="var(--navy)" stroke-width="7"
+                id="circle-ai" stroke-dasharray="540" stroke-dashoffset="65"
+                stroke-linecap="round" transform="rotate(-90 100 100)"/>
+              <text x="100" y="107" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="28" fill="var(--navy)">88</text>
+            </svg>
+            <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:17px;color:var(--navy);letter-spacing:.05em;text-transform:uppercase">AI Tools</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:10px;color:rgba(12,57,105,.4);text-align:center;line-height:1.6">Claude Code · Cursor<br>Dify · Bolt.new</div>
+          </div>
+
+          <!-- Development -->
+          <div class="tech-chart">
+            <svg viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="86" fill="none" stroke="var(--rose-dark)" stroke-width="7"/>
+              <circle cx="100" cy="100" r="86" fill="none" stroke="var(--navy)" stroke-width="7"
+                id="circle-dev" stroke-dasharray="540" stroke-dashoffset="135"
+                stroke-linecap="round" transform="rotate(-90 100 100)"/>
+              <text x="100" y="107" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="28" fill="var(--navy)">75</text>
+            </svg>
+            <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:17px;color:var(--navy);letter-spacing:.05em;text-transform:uppercase">Development</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:10px;color:rgba(12,57,105,.4);text-align:center;line-height:1.6">Python · HTML · CSS<br>JavaScript · TypeScript</div>
+          </div>
+
+          <!-- Design -->
+          <div class="tech-chart">
+            <svg viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="86" fill="none" stroke="var(--rose-dark)" stroke-width="7"/>
+              <circle cx="100" cy="100" r="86" fill="none" stroke="var(--navy)" stroke-width="7"
+                id="circle-design" stroke-dasharray="540" stroke-dashoffset="108"
+                stroke-linecap="round" transform="rotate(-90 100 100)"/>
+              <text x="100" y="107" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="28" fill="var(--navy)">80</text>
+            </svg>
+            <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:17px;color:var(--navy);letter-spacing:.05em;text-transform:uppercase">Design</div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:10px;color:rgba(12,57,105,.4);text-align:center;line-height:1.6">Figma · Adobe Illustrator<br>Adobe Photoshop · Canva</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section id="values">
+    <div class="val-header sr">
+      <div class="s-tag" style="color:rgba(236,216,209,.4);position:absolute;top:40px;left:56px">Values</div>
+      <div class="val-big">大切に<br>すること</div>
+      <p class="val-desc">スキルより先に伝えたいのは、<em>私がどんな姿勢で仕事をするか</em>ということ。<br>この3つが、私のものづくりの軸です。</p>
+    </div>
+    <div class="val-cards sr-stagger">
+      <div class="val-card">
+        <div class="val-card-num">01</div>
+        <h3 class="val-card-title">期待を超えて返す</h3>
+        <div class="val-card-en">Go beyond what's asked.</div>
+        <p class="val-card-body">言われたことだけをやるのではなく、「こっちの方がいいかも」を常に考えます。依頼の一歩先を想像して、期待以上のものをお渡しします。</p>
+      </div>
+      <div class="val-card">
+        <div class="val-card-num">02</div>
+        <h3 class="val-card-title">全体を見て、本質を掴む</h3>
+        <div class="val-card-en">See the whole picture.</div>
+        <p class="val-card-body">目の前の要望だけでなく、「そもそもなぜ必要か」から考えます。本当に解決すべき課題を一緒に見つけるのが得意です。</p>
+      </div>
+      <div class="val-card">
+        <div class="val-card-num">03</div>
+        <h3 class="val-card-title">説明しなくても伝わるUIを</h3>
+        <div class="val-card-en">Intuitive by design.</div>
+        <p class="val-card-body">どんなに優れたシステムも、使いにくければ意味がない。誰でも迷わず使えるUIにこだわります。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKS -->
+  <section id="works">
+    <div class="works-mast sr" style="position:relative">
+      <div class="s-tag" style="color:rgba(12,57,105,.4);position:absolute;top:50px;left:48px">Works</div>
+      <div class="wm-title">MY<br>WORKS</div>
+      <div class="wm-sub">制作実績</div>
+    </div>
+        <div class="proj-grid sr-stagger">
+
+      <div class="pc" onclick="openModal(0)">
+        <div class="pc-thumb" style="background:#0c3969;display:flex;align-items:center;justify-content:center;padding:16px">
+          <div style="width:90%;background:#071f3d;border-radius:8px;padding:6px;box-shadow:0 8px 32px rgba(0,0,0,.4)">
+            <div style="background:#1a5294;border-radius:4px 4px 0 0;padding:4px 10px;font-size:7px;color:rgba(236,216,209,.6);letter-spacing:.15em;font-family:'DM Mono',monospace">住宅営業 AI アシスタント</div>
+            <div style="overflow:hidden;aspect-ratio:16/9">
+              <div style="width:100%;height:100%;background:#071f3d;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:12px;box-sizing:border-box">
+                <div style="font-size:7px;color:rgba(236,216,209,.4);letter-spacing:.1em;font-family:'DM Mono',monospace">月々の返済額</div>
+                <div style="font-size:18px;font-weight:900;color:#ecd8d1;font-family:'Outfit',sans-serif;line-height:1">¥ 85,000<span style="font-size:9px;font-weight:400;color:rgba(236,216,209,.5)">/月</span></div>
+                <div style="width:100%;height:1px;background:rgba(236,216,209,.1);margin:2px 0"></div>
+                <div style="font-size:7px;color:rgba(236,216,209,.35);line-height:1.7;font-family:'DM Sans',sans-serif">AIが未来ストーリーを生成中...<br><span style="color:rgba(236,216,209,.55)">「今の家賃より月2万円で、</span><br><span style="color:rgba(236,216,209,.55)">　マイホームが手に入ります」</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pc-card-title">住宅営業AIアシスタント</div>
+      </div>
+
+      <div class="pc" onclick="openModal(1)">
+        <div class="pc-thumb" style="background:#f0f0f0;display:flex;align-items:center;justify-content:center;padding:16px">
+          <div style="width:120px;background:#111;border-radius:24px;padding:8px;box-shadow:0 8px 32px rgba(0,0,0,.3)">
+            <div style="background:#fff;border-radius:18px;overflow:hidden;aspect-ratio:9/16">
+              <div style="width:100%;height:100%;background:#e5f6eb;display:flex;flex-direction:column;overflow:hidden">
+                <div style="background:#06c755;padding:6px;text-align:center;font-size:9px;color:#fff;font-weight:700;letter-spacing:.1em">ミチビキ</div>
+                <div style="flex:1;padding:10px;display:flex;flex-direction:column;gap:8px;overflow:hidden">
+                  <div style="background:#fff;border-radius:0 10px 10px 10px;padding:7px 9px;font-size:8px;max-width:80%;box-shadow:0 1px 3px rgba(0,0,0,.08);line-height:1.5;color:#333">やる気でない…</div>
+                  <div style="background:#06c755;border-radius:10px 10px 0 10px;padding:7px 9px;font-size:8px;max-width:80%;align-self:flex-end;color:#fff;line-height:1.5">今できる一歩を教えるよ！まず5分だけ座ろう ✨</div>
+                  <div style="background:#fff;border-radius:0 10px 10px 10px;padding:7px 9px;font-size:8px;max-width:80%;box-shadow:0 1px 3px rgba(0,0,0,.08);line-height:1.5;color:#333">ありがとう！やってみる</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pc-card-title">ミチビキ</div>
+      </div>
+
+      <div class="pc" onclick="openModal(2)">
+        <div class="pc-thumb" style="background:#0d0d1a;display:flex;align-items:center;justify-content:center;padding:16px">
+          <div style="width:90%;background:#111;border-radius:8px;padding:6px;box-shadow:0 8px 32px rgba(0,0,0,.5)">
+            <div style="background:#222;border-radius:4px 4px 0 0;padding:4px 8px;display:flex;gap:4px">
+              <div style="width:8px;height:8px;border-radius:50%;background:#ff5f56"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#ffbd2e"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#27c93f"></div>
+            </div>
+            <div style="overflow:hidden;aspect-ratio:16/9">
+              <svg width="100%" height="100%" viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg" style="display:block">
+                <rect width="300" height="170" fill="#0d0d1a"/>
+                <circle cx="60" cy="28" r="1.5" fill="white" opacity=".8"/>
+                <circle cx="105" cy="14" r="1" fill="white" opacity=".6"/>
+                <circle cx="165" cy="22" r="2" fill="white" opacity=".9"/>
+                <circle cx="210" cy="9" r="1" fill="white" opacity=".5"/>
+                <circle cx="248" cy="33" r="1.5" fill="white" opacity=".7"/>
+                <circle cx="272" cy="18" r="1" fill="white" opacity=".6"/>
+                <circle cx="32" cy="42" r="1" fill="white" opacity=".4"/>
+                <circle cx="135" cy="44" r="1" fill="white" opacity=".35"/>
+                <circle cx="45" cy="54" r="1.5" fill="#a78bfa" opacity=".6"/>
+                <circle cx="195" cy="49" r="1" fill="#60a5fa" opacity=".5"/>
+                <circle cx="285" cy="55" r="1" fill="#f9a8d4" opacity=".4"/>
+                <path d="M0 118 Q75 84 150 108 Q225 132 300 104 L300 170 L0 170Z" fill="#1e1b4b" opacity=".9"/>
+                <path d="M0 134 Q90 104 180 124 Q240 138 300 116 L300 170 L0 170Z" fill="#0f172a"/>
+                <text x="150" y="163" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.3)" font-family="monospace" letter-spacing="2">昨夜の眠り — 7.2h</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="pc-card-title">Sleep Art Gallery</div>
+      </div>
+
+      <div class="pc" onclick="openModal(3)">
+        <div class="pc-thumb" style="background:#f5e6f0;display:flex;align-items:center;justify-content:center;padding:16px">
+          <div style="width:90%;background:#fff;border-radius:8px;padding:6px;box-shadow:0 8px 32px rgba(0,0,0,.15)">
+            <div style="background:#eee;border-radius:4px 4px 0 0;padding:4px 8px;display:flex;gap:4px">
+              <div style="width:8px;height:8px;border-radius:50%;background:#ff5f56"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#ffbd2e"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#27c93f"></div>
+            </div>
+            <div style="overflow:hidden;aspect-ratio:16/9">
+              <div style="width:100%;height:100%;background:#fff8f5;display:flex;align-items:center;justify-content:center;gap:16px;padding:16px;box-sizing:border-box">
+                <div style="text-align:center;flex-shrink:0">
+                  <div style="font-size:24px">☀️</div>
+                  <div style="font-size:9px;color:#aaa;margin-top:4px;font-family:'DM Mono',monospace">22°C</div>
+                </div>
+                <div>
+                  <div style="font-size:8px;color:#bbb;letter-spacing:.1em;margin-bottom:6px;font-family:'DM Mono',monospace">今日のパレット</div>
+                  <div style="display:flex;gap:5px">
+                    <div style="width:18px;height:50px;border-radius:9px;background:#f4a4a4"></div>
+                    <div style="width:18px;height:50px;border-radius:9px;background:#d4b4f4"></div>
+                    <div style="width:18px;height:50px;border-radius:9px;background:#a4c8f4"></div>
+                    <div style="width:18px;height:50px;border-radius:9px;background:#f4d4a4"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pc-card-title">Weather Palette</div>
+      </div>
+
+      <div class="pc" onclick="openModal(4)">
+        <div class="pc-thumb" style="background:#071f3d;display:flex;align-items:center;justify-content:center;padding:16px">
+          <div style="width:90%;background:#0c3969;border-radius:8px;padding:6px;box-shadow:0 8px 32px rgba(0,0,0,.4)">
+            <div style="background:#1a5294;border-radius:4px 4px 0 0;padding:4px 8px;display:flex;gap:4px">
+              <div style="width:8px;height:8px;border-radius:50%;background:#ff5f56"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#ffbd2e"></div>
+              <div style="width:8px;height:8px;border-radius:50%;background:#27c93f"></div>
+            </div>
+            <div style="overflow:hidden;aspect-ratio:16/9">
+              <div style="width:100%;height:100%;background:#071f3d;display:flex;flex-direction:column">
+                <div style="background:#0c3969;padding:5px 10px;font-size:7px;color:rgba(236,216,209,.5);letter-spacing:.25em;font-family:'DM Mono',monospace">ATELIER MOMO</div>
+                <div style="flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px">
+                  <div style="font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:#f7f0ed;letter-spacing:.12em">ATELIER</div>
+                  <div style="font-family:'Outfit',sans-serif;font-weight:900;font-size:16px;color:#f7f0ed;letter-spacing:.12em">MOMO</div>
+                  <div style="width:24px;height:1px;background:rgba(236,216,209,.25);margin:6px 0"></div>
+                  <div style="font-size:7px;color:rgba(236,216,209,.35);letter-spacing:.12em;font-family:'DM Mono',monospace">作業を仕組みに</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pc-card-title">ATELIER MOMO</div>
+      </div>
+
+    </div>
+
+    <!-- MODAL -->
+    <div id="works-modal" style="display:none;position:fixed;inset:0;background:rgba(7,31,61,.85);z-index:1000;align-items:center;justify-content:center;padding:24px" onclick="closeModal(event)">
+      <div style="background:var(--rose-pale);max-width:640px;width:100%;max-height:85vh;overflow-y:auto;position:relative" onclick="event.stopPropagation()">
+        <button onclick="closeModal()" style="position:absolute;top:20px;right:20px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--navy);z-index:1">✕</button>
+        <div id="modal-content" style="padding:48px"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="con-l sr">
+      <div>
+        <div class="s-tag" style="color:rgba(236,216,209,.35)">Contact</div>
+        <h2 class="con-big">いっしょに<br><span class="out">作りま</span><br>せんか。</h2>
+        <p class="con-message">
+          「こんなのできる？」って、<br>気軽に聞いてみてください。<br>
+          どんな小さな相談でも、<br>一緒に考えます。
+        </p>
+      </div>
+      <div class="con-btns">
+        <a href="/cdn-cgi/l/email-protection#670a080a080c0627021f060a170b024904080a" class="btn btn-rose"><span>メールを送る</span><span class="b-arr">→</span><div class="b-bg"></div></a>
+        <a href="#" class="btn btn-ghost-rose"><span>Lancers</span><div class="b-bg"></div></a>
+      </div>
+    </div>
+    <div class="con-r sr">
+      <div>
+        <div class="s-tag" style="color:rgba(12,57,105,.35)">Get in touch</div>
+        <p class="con-r-intro">
+          WebアプリからAI業務自動化、UI設計まで対応しています。<br>
+          <em>「まず話だけ」でも大歓迎です。</em><br>
+          一緒に育てていける関係を探しています。
+        </p>
+        <div class="con-list">
+          <a href="/cdn-cgi/l/email-protection#fe93919391959fbe9b869f938e929bd09d9193" class="con-item"><span class="con-name">Email</span><span class="con-arr">→</span></a>
+          <a href="#" class="con-item"><span class="con-name">Twitter / X</span><span class="con-arr">→</span></a>
+          <a href="#" class="con-item"><span class="con-name">GitHub</span><span class="con-arr">→</span></a>
+          <a href="#" class="con-item"><span class="con-name">Lancers</span><span class="con-arr">→</span></a>
+        </div>
+      </div>
+      <p class="con-note">© 2024 ATELIER MOMO — All rights reserved</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>ATELIER MOMO — Portfolio 2024</span>
+    <span class="f-dot">フリーランス案件、受付中</span>
+    <span>HTML / CSS / JS — Vercel</span>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  (() => {
+    /* Start hero entrance immediately on load */
+    window.addEventListener('load', startHero);
+
+    /* HERO ENTRANCE */
+    function startHero() {
+      document.getElementById('nav').classList.add('in');
+      const eyeLine   = document.getElementById('eyeLine');
+      const eyeText   = document.getElementById('eyeText');
+      const cl1       = document.getElementById('cl1');
+      const cl2       = document.getElementById('cl2');
+      const hSub      = document.getElementById('hSub');
+      const hTags     = document.getElementById('hTags');
+      const hNameRow  = document.getElementById('hNameRow');
+      const heroBottom= document.getElementById('heroBottom');
+      const t = (el, delay, props) => setTimeout(() => { Object.assign(el.style, { transition: 'all .85s cubic-bezier(0.16,1,0.3,1)', ...props }); }, delay);
+
+      t(eyeLine,  200, { width: '40px', transition: 'width .7s cubic-bezier(0.16,1,0.3,1)' });
+      t(eyeText,  280, { opacity: '1', transform: 'translateX(0)' });
+      t(cl1,      420, { transform: 'translateY(0)' });
+      t(cl2,      570, { transform: 'translateY(0)' });
+      t(hSub,     800, { opacity: '1', transform: 'translateY(0)' });
+      t(hTags,    940, { opacity: '1', transform: 'translateY(0)' });
+      t(hNameRow, 1060,{ opacity: '1', transform: 'translateY(0)' });
+      t(heroBottom,1180,{ opacity: '1', transform: 'translateY(0)' });
+    }
+
+
+
+    /* SCROLL REVEAL */
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('up'); ro.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.sr,.sr-stagger').forEach(el => ro.observe(el));
+
+    /* SKILL BARS */
+    const skillObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.querySelectorAll('.sk-fill').forEach((b,i) => setTimeout(() => b.classList.add('on'), i*100));
+        skillObs.unobserve(e.target);
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.about-r').forEach(el => skillObs.observe(el));
+
+    /* DOT GRID ANIMATION */
+    const allDots = document.querySelectorAll('.dot-cell');
+    allDots.forEach(d => { d.style.opacity = '0'; d.style.transform = 'scale(0)'; });
+    const dotObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const rows = e.target.querySelectorAll('.dot-row');
+        rows.forEach((row, ri) => {
+          const dots = row.querySelectorAll('.dot-cell');
+          dots.forEach((dot, di) => {
+            setTimeout(() => {
+              dot.style.opacity = '1';
+              dot.style.transform = 'scale(1)';
+            }, ri * 150 + di * 15);
+          });
+        });
+        dotObs.unobserve(e.target);
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.dot-grid-wrap').forEach(el => dotObs.observe(el));
+
+    /* WORKS MODAL */
+  })();
+
+  // グローバルスコープに定義
+  const works = [
+    { num:'01', cat:'Python × Claude API', title:'住宅営業AIアシスタント', desc:'注文住宅の営業現場で使える業務効率化ツール。顧客情報を入力するだけでローン試算・大手HMとの比較文・感情に寄り添う未来ストーリーを自動生成。商談の準備時間を大幅に短縮する。', tags:['Python','Claude API','Flask','HTML','CSS'], demo:'', github:'' },
+    { num:'02', cat:'LINE × Dify', title:'ミチビキ', desc:'やる気がなくても動ける状態を作るLINE Bot。ワンクリックで「今やるべき一歩」を提示し、迷う時間をゼロにする。弟妹に声をかけるような、やさしい介入設計を意識した。', tags:['Python','LINE API','Dify','Cursor'], demo:'', github:'https://github.com/momoka810/line-motivation' },
+    { num:'03', cat:'Claude Code × Canvas API', title:'Sleep Art Gallery', desc:'睡眠データをジェネラティブアートに変換。朝起きたら昨夜の眠りが星空と山の絵になっている。ゲーム要素で継続モチベーションも。', tags:['HTML','JavaScript','Canvas API','Claude Code'], demo:'https://sleep-art-gallery-89oa.vercel.app/', github:'https://github.com/momoka810/sleep-art-gallery-' },
+    { num:'04', cat:'Open-Meteo API', title:'Weather Palette', desc:'気温・シーン・テイストを選ぶだけで今日のコーデを自動提案。服の色をパレットで管理し、毎朝の意思決定コストをゼロにする。', tags:['HTML','CSS','JavaScript','Cursor'], demo:'https://weather-palette1.onrender.com/', github:'https://github.com/momoka810/weather-palette1' },
+    { num:'05', cat:'Portfolio', title:'ATELIER MOMO', desc:'AIエンジニア×デザイナーとしての自己紹介サイト。フランス雑誌のような美意識とミニマルなUI設計で制作。', tags:['HTML','CSS','JavaScript'], demo:'', github:'' },
+  ];
+
+  function openModal(i) {
+      const w = works[i];
+      const btns = [
+        w.demo ? `<a href="${w.demo}" target="_blank" class="modal-btn">Demo →</a>` : '',
+        w.github ? `<a href="${w.github}" target="_blank" class="modal-btn modal-btn-github">GitHub →</a>` : ''
+      ].join('');
+      const cards = document.querySelectorAll('.pc');
+      const thumbEl = cards[i] ? cards[i].querySelector('.pc-thumb') : null;
+      const thumbHTML = thumbEl ? thumbEl.outerHTML : '';
+      document.getElementById('modal-content').innerHTML = `
+        <div style="height:220px;overflow:hidden;margin:-48px -48px 36px;position:relative">${thumbHTML}</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;color:rgba(12,57,105,.4);margin-bottom:12px">${w.num} — ${w.cat}</div>
+        <h3 style="font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(24px,3vw,36px);color:var(--navy);margin:0 0 20px;text-transform:uppercase">${w.title}</h3>
+        <p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;color:rgba(12,57,105,.7);margin:0 0 28px">${w.desc}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:32px">${w.tags.map(t=>`<span class="pc-tag">${t}</span>`).join('')}</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">${btns}</div>
+      `;
+      const modal = document.getElementById('works-modal');
+      modal.style.display = 'flex';
+      setTimeout(() => modal.style.opacity = '1', 10);
+    }
+
+  function closeModal(e) {
+    document.getElementById('works-modal').style.display = 'none';
+  }
+
+  (() => {
+    /* PARALLAX */
+    window.addEventListener('scroll', () => {
+      document.querySelector('.h-orb').style.transform = `translate(-50%, calc(-50% + ${window.scrollY * 0.12}px))`;
+    }, { passive:true });
+
+    /* NAV scroll */
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('nav');
+      if (window.scrollY > 40) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    }, { passive:true });
+  })();
+
+  </script>
+</body>
+</html>
