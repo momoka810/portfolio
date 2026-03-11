@@ -578,13 +578,6 @@
       </div>
 
       <div class="pc" onclick="openModal(1)">
-        <div class="pc-thumb" style="background:#1e293b;overflow:hidden">
-          <img src="img-joblens.png" style="width:100%;height:100%;object-fit:cover;object-position:top">
-        </div>
-        <div class="pc-card-title">Joblens</div>
-      </div>
-
-      <div class="pc" onclick="openModal(2)">
         <div class="pc-thumb" style="background:#e8f0f8;display:flex;align-items:center;justify-content:center;overflow:hidden">
           <div style="height:90%;aspect-ratio:952/1521;background:#1a1a1a;border-radius:22px;padding:6px;box-sizing:border-box;box-shadow:0 8px 32px rgba(0,0,0,.35);flex-shrink:0;overflow:hidden">
             <div style="width:100%;height:100%;border-radius:18px;overflow:hidden">
@@ -593,6 +586,19 @@
           </div>
         </div>
         <div class="pc-card-title">おうち在庫</div>
+      </div>
+
+      <div class="pc" onclick="openModal(2)">
+        <div class="pc-thumb" style="background:#e8f5e9;display:flex;align-items:center;justify-content:center;overflow:hidden">
+          <div style="height:90%;aspect-ratio:9/16;background:#1a1a1a;border-radius:22px;padding:6px;box-sizing:border-box;box-shadow:0 8px 32px rgba(0,0,0,.35);flex-shrink:0;overflow:hidden">
+            <div style="width:100%;height:100%;border-radius:18px;overflow:hidden;background:#f0faf0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;box-sizing:border-box">
+              <div style="font-size:11px;letter-spacing:.15em;color:#2e7d32;font-family:'DM Mono',monospace">HEALTH BOT</div>
+              <div style="font-size:28px">🥗</div>
+              <div style="font-size:9px;color:#4caf50;text-align:center;line-height:1.6;font-family:'DM Sans',sans-serif">足すだけ・選ぶだけ<br>健康サポート</div>
+            </div>
+          </div>
+        </div>
+        <div class="pc-card-title">たすだけヘルス</div>
       </div>
 
       <div class="pc" onclick="openModal(3)">
@@ -607,26 +613,13 @@
       </div>
 
       <div class="pc" onclick="openModal(4)">
-        <div class="pc-thumb" style="background:#e8f5e9;display:flex;align-items:center;justify-content:center;overflow:hidden">
-          <div style="height:90%;aspect-ratio:9/16;background:#1a1a1a;border-radius:22px;padding:6px;box-sizing:border-box;box-shadow:0 8px 32px rgba(0,0,0,.35);flex-shrink:0;overflow:hidden">
-            <div style="width:100%;height:100%;border-radius:18px;overflow:hidden;background:#f0faf0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;box-sizing:border-box">
-              <div style="font-size:11px;letter-spacing:.15em;color:#2e7d32;font-family:'DM Mono',monospace">HEALTH BOT</div>
-              <div style="font-size:28px">🥗</div>
-              <div style="font-size:9px;color:#4caf50;text-align:center;line-height:1.6;font-family:'DM Sans',sans-serif">足すだけ・選ぶだけ<br>健康サポート</div>
-            </div>
-          </div>
-        </div>
-        <div class="pc-card-title">たすだけヘルス</div>
-      </div>
-
-      <div class="pc" onclick="openModal(5)">
         <div class="pc-thumb" style="background:#0d0d1a;overflow:hidden">
           <img src="img-sleep.png" style="width:100%;height:100%;object-fit:cover;object-position:top">
         </div>
         <div class="pc-card-title">Sleep Art Gallery</div>
       </div>
 
-      <div class="pc" onclick="openModal(6)">
+      <div class="pc" onclick="openModal(5)">
         <div class="pc-thumb" style="background:#071f3d;display:flex;align-items:center;justify-content:center;padding:16px">
           <div style="width:90%;background:#0c3969;border-radius:8px;padding:6px;box-shadow:0 8px 32px rgba(0,0,0,.4)">
             <div style="background:#1a5294;border-radius:4px 4px 0 0;padding:4px 8px;display:flex;gap:4px">
@@ -776,12 +769,11 @@
   // グローバルスコープに定義
   const works = [
     { num:'01', cat:'Python × Claude API', title:'住宅営業AIアシスタント', desc:'注文住宅の営業現場で使える業務効率化ツール。顧客情報を入力するだけでローン試算・大手HMとの比較文・感情に寄り添う未来ストーリーを自動生成。商談の準備時間を大幅に短縮する。', tags:['Python','OpenAI API','Flask','JavaScript','HTML','CSS'], demo:'https://housing-sales-ai-assistant-1.onrender.com/', github:'https://github.com/momoka810/housing-sales-ai-assistant' },
-    { num:'02', cat:'AI × 求人比較', title:'Joblens', desc:'気になる求人票をペーストするだけでAIが要約・整理。2件以上入力すると条件・雰囲気・キャリア観点での比較レポートを自動生成。転職活動の情報過多を解消する。', tags:['React','TypeScript','Claude API','Vercel'], demo:'https://joblens2-fktoxzoi2-momokas-projects-a7100500.vercel.app/', github:'' },
-    { num:'03', cat:'FastAPI × Claude API', title:'おうち在庫', desc:'食材・日用品の在庫をスマホ/PCで管理するWebアプリ。期限切れ間近の食材を自動検出し、Claude APIがその食材を使ったレシピをリアルタイム提案。買い物リストも自動生成。', tags:['Python','FastAPI','React','Tailwind','Claude API'], demo:'https://home-inventory-rust.vercel.app', github:'' },
+    { num:'02', cat:'FastAPI × Claude API', title:'おうち在庫', desc:'食材・日用品の在庫をスマホ/PCで管理するWebアプリ。期限切れ間近の食材を自動検出し、Claude APIがその食材を使ったレシピをリアルタイム提案。買い物リストも自動生成。', tags:['Python','FastAPI','React','Tailwind','Claude API'], demo:'https://home-inventory-rust.vercel.app', github:'' },
+    { num:'03', cat:'LINE × Dify × FastAPI', title:'たすだけヘルス', desc:'一人暮らしで栄養や健康を気にしたいけど管理がめんどくさい人のための「足すだけ・選ぶだけ」健康サポートLINE Bot。食べたものを送るだけでAIが栄養バランスをフィードバック。', tags:['Python','FastAPI','LINE API','Dify'], demo:'', github:'https://github.com/momoka810/health-chatbot' },
     { num:'04', cat:'LINE × Dify', title:'ミチビキ', desc:'やる気がなくても動ける状態を作るLINE Bot。ワンクリックで「今やるべき一歩」を提示し、迷う時間をゼロにする。弟妹に声をかけるような、やさしい介入設計を意識した。', tags:['Python','LINE API','Dify','Cursor'], demo:'', github:'https://github.com/momoka810/line-motivation' },
-    { num:'05', cat:'LINE × Dify × FastAPI', title:'たすだけヘルス', desc:'一人暮らしで栄養や健康を気にしたいけど管理がめんどくさい人のための「足すだけ・選ぶだけ」健康サポートLINE Bot。食べたものを送るだけでAIが栄養バランスをフィードバック。', tags:['Python','FastAPI','LINE API','Dify'], demo:'', github:'https://github.com/momoka810/health-chatbot' },
-    { num:'06', cat:'Claude Code × Canvas API', title:'Sleep Art Gallery', desc:'睡眠データをジェネラティブアートに変換。朝起きたら昨夜の眠りが星空と山の絵になっている。ゲーム要素で継続モチベーションも。', tags:['HTML','JavaScript','Canvas API','Claude Code'], demo:'https://sleep-art-gallery-89oa.vercel.app/', github:'https://github.com/momoka810/sleep-art-gallery-' },
-    { num:'07', cat:'Portfolio', title:'ATELIER MOMO', desc:'AIエンジニア×デザイナーとしての自己紹介サイト。フランス雑誌のような美意識とミニマルなUI設計で制作。', tags:['HTML','CSS','JavaScript'], demo:'', github:'' },
+    { num:'05', cat:'Claude Code × Canvas API', title:'Sleep Art Gallery', desc:'睡眠データをジェネラティブアートに変換。朝起きたら昨夜の眠りが星空と山の絵になっている。ゲーム要素で継続モチベーションも。', tags:['HTML','JavaScript','Canvas API','Claude Code'], demo:'https://sleep-art-gallery-89oa.vercel.app/', github:'https://github.com/momoka810/sleep-art-gallery-' },
+    { num:'06', cat:'Portfolio', title:'ATELIER MOMO', desc:'AIエンジニア×デザイナーとしての自己紹介サイト。フランス雑誌のような美意識とミニマルなUI設計で制作。', tags:['HTML','CSS','JavaScript'], demo:'', github:'' },
   ];
 
   function openModal(i) {
