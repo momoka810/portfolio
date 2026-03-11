@@ -750,7 +750,7 @@
     { num:'03', cat:'LINE × Dify × FastAPI', title:'たすだけヘルス', desc:'一人暮らしで栄養や健康を気にしたいけど管理がめんどくさい人のための「足すだけ・選ぶだけ」健康サポートLINE Bot。食べたものを送るだけでAIが栄養バランスをフィードバック。', tags:['Python','FastAPI','LINE API','Dify'], demo:'', github:'https://github.com/momoka810/health-chatbot' },
     { num:'04', cat:'Python × LINE API', title:'ミチビキ', desc:'やる気がなくても動ける状態を作るLINE Bot。ワンクリックで「今やるべき一歩」を提示し、迷う時間をゼロにする。弟妹に声をかけるような、やさしい介入設計を意識した。', tags:['Python','Flask','LINE API'], demo:'', github:'https://github.com/momoka810/line-motivation' },
     { num:'05', cat:'JavaScript × Canvas API', title:'Sleep Art Gallery', desc:'睡眠データをジェネラティブアートに変換。朝起きたら昨夜の眠りが星空と山の絵になっている。ゲーム要素で継続モチベーションも。', tags:['HTML','CSS','JavaScript','Canvas API'], demo:'https://sleep-art-gallery-89oa.vercel.app/', github:'https://github.com/momoka810/sleep-art-gallery-' },
-    { num:'06', cat:'Portfolio', title:'ATELIER MOMO', desc:'AIエンジニア×デザイナーとしての自己紹介サイト。フランス雑誌のような美意識とミニマルなUI設計で制作。', tags:['HTML','CSS','JavaScript'], demo:'', github:'https://github.com/momoka810/portfolio' },
+    { num:'06', cat:'Portfolio', title:'ATELIER MOMO', desc:'AIエンジニア×デザイナーとしての自己紹介サイト。\n静かな落ち着きの中に、小さなワクワクを大切にして進んでいく自分の性格を表現。', tags:['HTML','CSS','JavaScript'], demo:'', github:'https://github.com/momoka810/portfolio' },
   ];
 
   function openModal(i) {
@@ -766,7 +766,7 @@
         <div style="height:220px;overflow:hidden;margin:-48px -48px 36px;position:relative">${thumbHTML}</div>
         <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;color:rgba(12,57,105,.4);margin-bottom:12px">${w.num} — ${w.cat}</div>
         <h3 style="font-family:'Outfit',sans-serif;font-weight:900;font-size:clamp(24px,3vw,36px);color:var(--navy);margin:0 0 20px;text-transform:uppercase">${w.title}</h3>
-        <p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;color:rgba(12,57,105,.7);margin:0 0 28px">${w.desc}</p>
+        <p style="font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.85;color:rgba(12,57,105,.7);margin:0 0 28px;white-space:pre-line">${w.desc}</p>
         <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:32px">${w.tags.map(t=>`<span class="pc-tag">${t}</span>`).join('')}</div>
         <div style="display:flex;gap:12px;flex-wrap:wrap">${btns}</div>
       `;
